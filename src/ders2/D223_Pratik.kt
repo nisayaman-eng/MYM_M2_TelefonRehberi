@@ -5,7 +5,7 @@ import ders1.cizgiCek
 fun main() {
     /*
     urunKaydet adında bir fonksiyon oluşturun ve sırasıyla id(Int), kategori(String), isim(String), fiyat(Double) parametrelerini almasını sağlayın. kategori parametresine “Genel” varsayılan değerini atayın.
-main içerisinde bu fonksiyonu çağırın. Yukarıda öğrendiğiniz Ctrl + Space kısayolunu kullanarak parametre isimlerini IDE’den otomatik tamamlattırın.
+ders4.main içerisinde bu fonksiyonu çağırın. Yukarıda öğrendiğiniz Ctrl + Space kısayolunu kullanarak parametre isimlerini IDE’den otomatik tamamlattırın.
 Parametreleri gönderirken sırayı tamamen bozun: Önce fiyat, sonra id, en son da ismi Named Argument kullanarak gönderin. Kodun hatasız çalıştığını gözlemleyin.
      */
 
