@@ -1,5 +1,7 @@
 package ortak
 
+import ders1.cizgiCek
+
 fun uygulamayaGiris(kullaniciAdi: String, cihazTipi: String = "Mobil") {
     println("Hoş geldin $kullaniciAdi! ($cihazTipi üzerinden bağlandın)")
 }
@@ -51,10 +53,10 @@ fun urunSorgula(urunlerListesi: MutableList<String>) {
     val arananUrun = readln().trim().lowercase()
 
 
-    if (urunlerListesi.contains(arananUrun)){
+    if (urunlerListesi.contains(arananUrun)) {
         val sira = urunlerListesi.indexOf(arananUrun)
         println("Mevcut ürün indexi: $sira")
-    }else{
+    } else {
         println("Ürün sepetinizde bulunamadı: $arananUrun, listenin başına ekleniyor...")
         urunlerListesi.add(0, arananUrun)
 
@@ -62,20 +64,99 @@ fun urunSorgula(urunlerListesi: MutableList<String>) {
     }
 }
 
-fun plakaDogrula(gecerliPlakalar: List<Int>){
+fun plakaDogrula(gecerliPlakalar: List<Int>) {
     print("Plaka kodunu girin: ")
     val plaka = readln().toIntOrNull()
 
-    if (plaka == null){
+    if (plaka == null) {
         println("Geçerli bir sayısal bir plaka kodu girin!")
-    }else {
-        if (gecerliPlakalar.contains(plaka)){
+    } else {
+        if (gecerliPlakalar.contains(plaka)) {
             println("Onaylandı, sistemimiz bu şehri destekliyor.")
-        }else{
+        } else {
             println("Desteklenmeyen plaka kodu")
         }
     }
 
+
+}
+
+fun menuyuGoster() {
+    println(
+        """
+      
+        --- TELEFON REHBERİ ---
+        1. Kişi Ekle
+        2. Kişi Bul
+        3. Tüm Rehberi Listele
+        4. Çıkış
+    """.trimIndent()
+    )
+    print("Seçiminiz: ")
+}
+
+fun isimFormatla(isim: String): String {
+    val trimliIsim = isim.trim().lowercase()
+    return trimliIsim
+}
+
+fun kisiEkle(rehber: MutableMap<String, String>) {
+    print("Eklenecek kişinin adı: ")
+    var kisiAdi = readln()
+    kisiAdi = isimFormatla(kisiAdi)
+    print("Telefon Numarası: ")
+    val numara = readln().trim()
+
+
+    if (kisiAdi.isEmpty() || numara.isEmpty()) {
+        println("Hata: İsim veya telefon numarası boş bırakılamaz!")
+    } else {
+        val buyukIsim = kisiAdi.replaceFirstChar { it.uppercase() }
+
+        if (rehber.containsKey(kisiAdi)) {
+            println("$buyukIsim zaten kayıtlıydı.Numarası güncellendi")
+        } else {
+            println("$buyukIsim rehbere eklendi")
+        }
+
+        rehber[kisiAdi] = numara
+
+    }
+
+}
+
+fun kisiBul(rehber: Map<String, String>) {
+    println("Kimin numarasını arıyorsunuz?: ")
+    var arananKisi = readln()
+    arananKisi = isimFormatla(arananKisi)
+
+    if (arananKisi.isEmpty()) {
+        println(" Hata: Arama yapabilmek için bir isim girmelisiniz!")
+    } else {
+
+        if (rehber.containsKey(arananKisi)) {
+            val numara = rehber[arananKisi]
+            println("Sonuç:${arananKisi.replaceFirstChar { it.uppercase() }} = $numara")
+        } else {
+            println("Hata: Kişi bulunamadı!")
+        }
+
+    }
+
+}
+
+fun rehberiListele(rehber: Map<String, String>) {
+
+    if (rehber.isEmpty()) {
+        println("Uyarı: Rehberiniz henüz boş. İlk önce kişi ekleyin!")
+    } else {
+        println("\n--- KAYITLI KİŞİLER ---")
+        for ((kisi, numara) in rehber) {
+            println("${kisi.replaceFirstChar { it.uppercase() }} -> $numara")
+        }
+        cizgiCek()
+
+    }
 
 }
 
